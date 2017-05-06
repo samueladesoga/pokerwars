@@ -2,6 +2,7 @@ defmodule Pokerwars.Hand do
   alias Pokerwars.Card
 
   def score(cards) do
+
     evaluate(cards)
   end
 
@@ -12,10 +13,15 @@ defmodule Pokerwars.Hand do
   	end 
   end
 
-  defp flush?(cards) do
-  	suits = Enum.map(cards, fn(%{rank: rank, suit: suit}) -> suit end)
-  	length(Enum.dedup(suits)) == 1
-  end
+  defp flush?([
+      %Card{rank: _, suit: suit},
+      %Card{rank: _, suit: suit},
+      %Card{rank: _, suit: suit},
+      %Card{rank: _, suit: suit},
+      %Card{rank: _, suit: suit}
+    ]), do: true
+
+  defp flush?(_), do: false
 
   defp sort_by_rank(cards) do
     Enum.sort(cards)
